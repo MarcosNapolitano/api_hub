@@ -26,6 +26,12 @@ export default function (app) {
       res.sendFile(process.cwd() + '/views/urlshortener.html');
   })
 
+  //headerparser api "index"
+  app.route("/api/whoami")
+    .get(function(req,res){
+      res.sendFile(process.cwd() + '/views/headerparser.html');
+  })
+
 
 
 
@@ -79,12 +85,22 @@ export default function (app) {
     return postUrl(ORIGINAL_URL,res)
     
   });
-
   app.get('/api/urlshortener/:id', (req, res) => {
 
     const ID = req.params.id;
     return getUrl(ID, res);
 
   })
+
+
+  //header parser api
+  app.get('/api/whoami/myinfo', function(req,res){
+    res.json({ipaddress:req.ip,language:req.get('accept-language'),software: req.get('user-agent')})
+  })
+
+
+  
+
+
 
 };
