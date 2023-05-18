@@ -1,0 +1,19 @@
+{
+  "name": "api_hub",
+  "version": "1.0.0",
+  "description": "A bunch of api's that I previously made separately",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+		"url": "https://github.com/MarcosNapolitano/api_hub.git"
+	},
+  "author": "Marcos Napolitano <marcosnapolitano7@gmail.com> (https://marcosnapolitano.github.io/)",
+  "license": "MIT",
+	"keywords": [
+		"node",
+		"express",
+    "api"
+	]
+}
