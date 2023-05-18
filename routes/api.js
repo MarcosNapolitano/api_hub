@@ -2,65 +2,43 @@
 
 import pkg from 'body-parser';
 const { urlencoded } = pkg;
-import ConvertHandler from '../controllers/convertHandler.js';
+import ConvertHandler from '../Logic/convertHandler.js';
 
 export default function (app) {
+
+  const implement = function(query, res){
+
+    const convert = new ConvertHandler(query,res);
+    const initNum = convert.Num
+    const initUnit = convert.Unit
+  
+    //checks if there's an invalid value and returns json
+    convert.checkInput()
+    if(!convert.convert()){
+      return undefined
+    }
+    convert.setReturnUnit()
+
+    return res.json({ initNum: initNum, 
+              initUnit: initUnit, 
+              returnNum: convert.result, 
+              returnUnit: convert.returnUnit, 
+              string: convert.getString()})
+  }
 
   app.use(urlencoded({ extended: false }));
   
   app.route('/api/convert').get(function(req,res){
+
     //stores and separates unit from number
     const query = req.query.input
-    const convert = new ConvertHandler();
-    const initNum = convert.getNum(query)
-    const initUnit = convert.getUnit(query)
-    
-    if(!initNum && !initUnit){
-      return res.json({error:'invalid number and unit'})
-    }else if(!initUnit){
-      return res.json({error : 'invalid unit'})
-    }else if(!initNum){
-      return res.json({error: 'invalid number'})
-    }
-    
-    const returnNum = convert.convert(initNum,initUnit)
-    const returnUnit = convert.getReturnUnit(initUnit)
-    const spelledInUnit = convert.spellOutUnit(initUnit)
-    const spelledReUnit = convert.spellOutUnit(returnUnit)
-    const string = convert.getString(initNum,spelledInUnit,returnNum,spelledReUnit)
-
-    res.json({ initNum: initNum, 
-              initUnit: initUnit, 
-              returnNum: returnNum, 
-              returnUnit: returnUnit, 
-              string: string})
+    implement(query,res)
     
   }).post(function(req,res){
-    //stores and separates unit from number
-    const query = req.body.input
-    const convert = new ConvertHandler();
-    const initNum = convert.getNum(query)
-    const initUnit = convert.getUnit(query)
 
-    if(!initNum && !initUnit){
-      return res.json({error:'invalid number and unit'})
-    }else if(!initUnit){
-      return res.json({error : 'invalid unit'})
-    }else if(!initNum){
-      return res.json({error: 'invalid number'})
-    }
-    
-    const returnNum = convert.convert(initNum,initUnit)
-    const returnUnit = convert.getReturnUnit(initUnit)
-    const spelledInUnit = convert.spellOutUnit(initUnit)
-    const spelledReUnit = convert.spellOutUnit(returnUnit)
-    const string = convert.getString(initNum,spelledInUnit,returnNum,spelledReUnit)
-    
-    res.json({ initNum: initNum, 
-              initUnit: initUnit, 
-              returnNum: returnNum, 
-              returnUnit: returnUnit, 
-              string: string})
+    const query = req.body.input
+    implement(query, res)
+
   })
 
 };
