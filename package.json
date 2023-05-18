@@ -6,9 +6,6 @@
   "scripts": {
     "start": "node index.js"
   },
-  "repository": {
-		"url": "https://github.com/MarcosNapolitano/api_hub.git"
-	},
   "author": "Marcos Napolitano <marcosnapolitano7@gmail.com> (https://marcosnapolitano.github.io/)",
   "license": "MIT",
 	"keywords": [
