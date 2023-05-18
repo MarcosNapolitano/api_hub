@@ -32,6 +32,11 @@ export default function (app) {
       res.sendFile(process.cwd() + '/views/headerparser.html');
   })
 
+  //exercise api "index"
+  app.get('/api/exercise', (req, res) => {
+    res.sendFile(process.cwd() + '/views/exercise.html')
+  });
+
 
 
 
