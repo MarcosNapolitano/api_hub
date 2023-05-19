@@ -49,6 +49,11 @@ export default function (app) {
     res.sendFile(process.cwd() + '/views/issue.html');
   });
 
+  //issues api "index"
+  app.route('/api/library').get(function (req, res) {
+    res.sendFile(process.cwd() + '/views/library.html');
+  });
+
   
   //----------------------------------------------------------//
 
