@@ -19,6 +19,8 @@ dotenv.config()
 //try catch in case smth goes wrong
 try{
   await mongoose.connect(process.env.MONGO_URI_EX);
+  await mongoose.connect(process.env.MONGO_URI_LB);
+  
 }catch (error){
   console.error("Could not connect to DataBase\n\n" + error)
 }
