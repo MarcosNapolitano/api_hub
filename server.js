@@ -8,15 +8,25 @@ import pkg from 'body-parser';
 
 const { json, urlencoded } = pkg;
 
+//express app
+let app = express();
+
 //to read env vars
 dotenv.config()
 
 //connects to the env file containing the mongo string
-//deactivated until I activate database
-//mongoose.connect(process.env.MONGO_URI);
 
-//express app
-let app = express();
+//try catch in case smth goes wrong
+try{
+  await mongoose.connect(process.env.MONGO_URI_EX);
+}catch (error){
+  console.error("Could not connect to DataBase\n\n" + error)
+}
+
+//if error after connection
+mongoose.connection.on('error', err => {
+  console.error("Connection to DataBase lost\n\n" + err);
+});
 
 //static files
 app.use('/public', express.static(process.cwd() + '/public'));

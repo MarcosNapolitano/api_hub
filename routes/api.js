@@ -9,6 +9,9 @@ import ConvertHandler from '../Logic/convertHandler.js';
 //urlshortener api
 import {checkUrl, postUrl, getUrl} from '../Logic/urlShortener.js';
 
+//exercise api
+import {createUser, findUsers, createExercise, getLogs} from "../Logic/exercise.js"
+
 export default function (app) {
 
   //for post request
@@ -104,8 +107,29 @@ export default function (app) {
   })
 
 
-  
+  //exercise api
+  app.post('/api/exercise/users',function(req, res){
 
+    //stores username 
+    const username = req.body.username
 
+    return createUser(username, res)
+
+  });
+
+  app.get('/api/exercise/users',function(req, res){
+
+    return findUsers(res)
+  })
+
+  app.post('/api/exercise/users/:id/exercises', function(req, res){
+    
+    return createExercise(req, res);
+  })
+
+  app.get('/api/exercise/users/:id/logs',function(req, res, next){
+    
+    return getLogs(req, res) 
+  })
 
 };
