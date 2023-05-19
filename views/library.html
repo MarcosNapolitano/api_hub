@@ -19,7 +19,7 @@
 <br>
 <div id ='sampleposting'>
   <h2 style="text-align: left">Test API responses</h2>
-  <form action="/api/books" method="post" class="border">
+  <form action="/api/library/books" method="post" class="border">
     <h4>Test post to /api/books</h4>
     <label for="title" >Book Title</label>
     <input type="text" id="title" name="title" value=""><br>
@@ -54,7 +54,7 @@
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"
         integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
         crossorigin="anonymous"></script>
-<script src="/public/client.js"></script>
+<script src="../public/client.js"></script>
 <script>
   /*
   *  For #sampleposting to update form action url to test inputs book id
@@ -62,7 +62,7 @@
   $(function() {
     $('#commentTest').submit(function(){
       let  id = $('#idinputtest').val();
-      $(this).attr('action', "/api/books/" + id);
+      $(this).attr('action', "/api/library/books/" + id);
     });
   });
 </script>

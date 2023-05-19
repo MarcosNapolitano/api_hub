@@ -15,6 +15,9 @@ import {createUser, findUsers, createExercise, getLogs} from "../Logic/exercise.
 //issues api
 import issue_DB from '../Logic/issues.js';
 
+//library api
+import { findAllBooks, postBook } from '../Logic/library.js';
+
 
 export default function (app) {
 
@@ -49,7 +52,7 @@ export default function (app) {
     res.sendFile(process.cwd() + '/views/issue.html');
   });
 
-  //issues api "index"
+  //library api "index"
   app.route('/api/library').get(function (req, res) {
     res.sendFile(process.cwd() + '/views/library.html');
   });
@@ -172,6 +175,33 @@ export default function (app) {
     return issue_DB.deleteIssue(req, res)
   });
 
+  //library api
+  app.route('/api/library/books')
+  .get(function (req, res){
+    return findAllBooks(res)
+  })
+  
+  .post(function (req, res){
+    return postBook(req, res)
+  
+  })
+  
+  // .delete(function(req, res){
+  
+  // });
+
+  // app.route('/api/library/books/:id')
+  // .get(function (req, res){
+    
+  // })
+  
+  // .post(function (req, res){
+  
+  // })
+  
+  // .delete(function(req, res){
+  
+  // });
 
 
 };
