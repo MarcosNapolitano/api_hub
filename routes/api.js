@@ -12,6 +12,10 @@ import {checkUrl, postUrl, getUrl} from '../Logic/urlShortener.js';
 //exercise api
 import {createUser, findUsers, createExercise, getLogs} from "../Logic/exercise.js"
 
+//issues api
+import issue_DB from '../Logic/issues.js';
+
+
 export default function (app) {
 
   //for post request
@@ -40,6 +44,13 @@ export default function (app) {
     res.sendFile(process.cwd() + '/views/exercise.html')
   });
 
+  //issues api "index"
+  app.route('/api/issues').get(function (req, res) {
+    res.sendFile(process.cwd() + '/views/issue.html');
+  });
+
+  
+  //----------------------------------------------------------//
 
 
 
@@ -131,5 +142,31 @@ export default function (app) {
     
     return getLogs(req, res) 
   })
+
+
+
+  //issues api
+  app.route('/api/issues/:project')
+  
+  .get(function (req, res){
+    
+    return issue_DB.getIssues(req, res) 
+  })
+  
+  .post(function (req, res){
+
+    return issue_DB.postIssue(req, res)    
+  })
+  
+  .put(function (req, res){
+    return issue_DB.updateIssue(req, res)
+  })
+  
+  .delete(function (req, res){
+
+    return issue_DB.deleteIssue(req, res)
+  });
+
+
 
 };
