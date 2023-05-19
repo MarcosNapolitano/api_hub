@@ -25,7 +25,10 @@ export const createUser = async (user, res) => {
 
   //saves
   //responds with str repres of user_id
-  const result = await newUser.save().catch(err=>console.error(saveError + err))
+  const result = await newUser.save()
+  .catch(err => {
+    console.error(saveError + err) 
+    return res.send(saveError)})
   
   if(result) return res.json({username: result.username, _id: result._id.toString()})
   else return console.error(saveError)
@@ -35,7 +38,9 @@ export const createUser = async (user, res) => {
 export const findUsers = async (res) => {
  
   //find and display all users
-  return res.json(await User.find({}).catch(err => console.error(findError + err)));
+  return res.json(await User.find({}).catch(err => {
+    console.error(findError + err) 
+    return res.send(findError)}));
 }
 
 export const createExercise = (req, res) => {
@@ -56,13 +61,17 @@ export const createExercise = (req, res) => {
   
       //creates new exercise and saves it
       data.exercises.push({description : desc, duration : dur, date : date})
-      data.save().catch(err => console.error(saveError + err))
+      data.save().catch(err => {
+        console.error(saveError + err) 
+        return res.send(saveError)})
 
       //returns specified info
       return res.json({username:data.username, description: desc, 
                        duration: dur, date: date, _id: id})
 
-    }).catch(err => console.error(findError + err))
+    }).catch(err => {
+      console.error(findError + err) 
+      return res.send(findError)})
   }
 
   saveExercise(id,desc,dur,date);
@@ -88,6 +97,8 @@ export const getLogs= async (req, res)=>{
     return res.json({username: data.username , count: data.exercises.length, 
                      _id: data._id, log: filteredList.slice(0,limit)})
 
-  }).catch(err => console.error(findError + err));
+  }).catch(err => {
+    console.error(findError + err) 
+    return res.send(findError)});
     
 }

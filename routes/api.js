@@ -16,7 +16,7 @@ import {createUser, findUsers, createExercise, getLogs} from "../Logic/exercise.
 import issue_DB from '../Logic/issues.js';
 
 //library api
-import { findAllBooks, postBook } from '../Logic/library.js';
+import { deleteAllBooks, deleteBook, findAllBooks, getBookById, postBook, postComment } from '../Logic/library.js';
 
 
 export default function (app) {
@@ -178,30 +178,35 @@ export default function (app) {
   //library api
   app.route('/api/library/books')
   .get(function (req, res){
+
     return findAllBooks(res)
   })
   
   .post(function (req, res){
+
     return postBook(req, res)
-  
   })
   
-  // .delete(function(req, res){
-  
-  // });
+  .delete(function(req, res){
 
-  // app.route('/api/library/books/:id')
-  // .get(function (req, res){
-    
-  // })
+    return deleteAllBooks(res)
+  });
+
+  app.route('/api/library/books/:id')
+  .get(function (req, res){
+
+    return getBookById(req, res)
+  })
   
-  // .post(function (req, res){
+  .post(function (req, res){
+
+    return postComment(req, res)
+  })
   
-  // })
+  .delete(function(req, res){
   
-  // .delete(function(req, res){
-  
-  // });
+    return deleteBook(req, res);
+  });
 
 
 };
