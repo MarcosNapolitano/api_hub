@@ -44,3 +44,8 @@ export const getUrl = (id, res) => {
       return res.json({error: 'url not inserted'});
     }
 }
+
+export const last_Id = (res)=>{
+
+  return res.json({last_id:actual_id})
+}

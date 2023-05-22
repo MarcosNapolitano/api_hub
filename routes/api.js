@@ -7,7 +7,7 @@ const { urlencoded } = pkg;
 import ConvertHandler from '../Logic/convertHandler.js';
 
 //urlshortener api
-import {checkUrl, postUrl, getUrl} from '../Logic/urlShortener.js';
+import {checkUrl, postUrl, getUrl, last_Id} from '../Logic/urlShortener.js';
 
 //exercise api
 import {createUser, findUsers, createExercise, getLogs} from "../Logic/exercise.js"
@@ -115,6 +115,7 @@ export default function (app) {
   app.get('/api/urlshortener/:id', (req, res) => {
 
     const ID = req.params.id;
+    if(ID=="lastid") return last_Id(res)
     return getUrl(ID, res);
 
   })

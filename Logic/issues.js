@@ -12,7 +12,7 @@ class Issues{
   getIssues(req, res){
   
     //filters for project name
-    const issues = this.projects[req.params.project];
+    let issues = this.projects[req.params.project];
     const correctParams = ["_id", "issue_title", "issue_text", "created_on", "updated_on", 
                            "created_by", "assigned_to", "open", "status_text"]
 
